@@ -5,20 +5,16 @@ loadHeaderFooter();
 
 
 
-const cart = new ShoppingCart("so-cart", document.querySelector(".product-list"));
+const shoppingCart = new ShoppingCart("so-cart", document.querySelector(".product-list"));
 
-cart.init();
+shoppingCart.init();
 
 // function renderCartContents() {
 //   const cartItems = getLocalStorage("so-cart") || [];
 //   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
 //   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 // }
-<<<<<<< HEAD
 const cart = new ShoppingCart("go-cart", document.querySelector(".product-list"));
-=======
-const cart = new ShoppingCart("so-cart", document.querySelector(".product-list"));
->>>>>>> safe-branch
 cart.init();
 
 // function renderCartContents() {
