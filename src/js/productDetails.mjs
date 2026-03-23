@@ -22,16 +22,16 @@ export default class ProductDetails {
 
     addProductToCart() {
 
-        const cart = getLocalStorage("so-cart");
+        let cart = getLocalStorage("so-cart");
 
         if (!Array.isArray(cart)) {
             cart = [];
         }
 
-        cart.push(product);
+        cart.push(this.product);
         setLocalStorage("so-cart", cart);
 
-        console.log(`${product.Name} added to your cart`);
+        console.log(`${this.product.Name} added to your cart`);
     }
 
     renderProductDetails() {
@@ -50,7 +50,7 @@ function ProductDetailsTemplate(product) {
 
     document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
     document.getElementById("productPrice").textContent = product.FinalPrice;
-    document.getElementById("productColor").textContent = product.Color[0].ColorName;
+    document.getElementById("productColor").textContent = product.Colors[0].ColorName;
 
     document.getElementById("addToCart").dataset.id = product.Id;
 }
