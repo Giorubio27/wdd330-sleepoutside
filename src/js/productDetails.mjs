@@ -4,32 +4,33 @@ export default class ProductDetails {
 
     constructor(productId, dataSource) {
         this.productId = productId;
-        this.dataSource = dataSource;
         this.product = {};
+        this.dataSource = dataSource;
+
 
     }
 
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
+
         this.renderProductDetails();
 
-        document    
+        document
             .getElementById("addToCart")
-            .addEventListener("click", () => this.addProductToCart.bind(this));
+            .addEventListener("click", this.addProductToCart.bind(this));
     }
 
-    addProductToCart(product) {
+    addProductToCart() {
 
         let cart = getLocalStorage("so-cart");
 
         if (!Array.isArray(cart)) {
             cart = [];
         }
-        cart.push(product);
 
         setLocalStorage("so-cart", cart);
 
-        console.log(`${product.Name} added to your cart`);
+        console.log(`${this.product.Name} added to your cart`);
     }
 
     renderProductDetails() {
@@ -54,4 +55,3 @@ function ProductDetailsTemplate(product) {
 }
 
 
-    
