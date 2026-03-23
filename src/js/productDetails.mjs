@@ -15,19 +15,19 @@ export default class ProductDetails {
 
         document    
             .getElementById("addToCart")
-            .addEventListener("click", () => this.addProductToCart.bind(this));
+            .addEventListener("click", this.addProductToCart.bind(this));
     }
 
     addProductToCart(product) {
 
-        let cart = getLocalStorage("so-cart");
+        let goCart = getLocalStorage("go-cart");
 
-        if (!Array.isArray(cart)) {
-            cart = [];
+        if (!Array.isArray(goCart)) {
+            goCart = [];
         }
-        cart.push(product);
+        goCart.push(product);
 
-        setLocalStorage("so-cart", cart);
+        setLocalStorage("go-cart", goCart);
 
         console.log(`${product.Name} added to your cart`);
     }
@@ -48,7 +48,7 @@ function ProductDetailsTemplate(product) {
 
     document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
     document.getElementById("productPrice").textContent = product.FinalPrice;
-    document.getElementById("productColor").textContent = product.Color[0].colorName;
+    document.getElementById("productColor").textContent = product.Color[0].ColorName;
 
     document.getElementById("addToCart").dataset.id = product.Id;
 }

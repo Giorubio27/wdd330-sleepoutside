@@ -3,7 +3,7 @@ import ShoppingCart from "./shoppingCart.mjs";
 
 loadHeaderFooter();
 
-const cart = new ShoppingCart("so-cart", document.querySelector(".product-list"));
+const cart = new ShoppingCart("go-cart", document.querySelector(".product-list"));
 cart.init();
 
 // function renderCartContents() {
