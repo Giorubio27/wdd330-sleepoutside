@@ -31,7 +31,7 @@ export function getParam(param) {
 
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
   const htmlStrings = list.map(templateFn);
-  
+
   if (clear) {
     parentElement.innerHTML = "";
 
@@ -44,8 +44,8 @@ export function renderWithTemplate(template, parentElement, data, callback) {
   if (callback) {
     callback(data);
   }
-  
-  
+
+
 }
 export async function loadTemplate(templatePath) {
   const response = await fetch(templatePath);
@@ -60,9 +60,9 @@ export async function loadHeaderFooter(headerPath = "../partials/header.html", f
   const headerElement = document.querySelector("header");
   const footerElement = document.querySelector("footer");
 
-  
+
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
- 
-  
+
+
 }
