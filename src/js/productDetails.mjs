@@ -49,7 +49,7 @@ function ProductDetailsTemplate(product) {
 
     document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
     document.getElementById("productPrice").textContent = product.FinalPrice;
-    document.getElementById("productColor").textContent = product.Color[0].colorName;
+    document.getElementById("productColor").textContent = product.Colors[0].ColorName;
 
     document.getElementById("addToCart").dataset.id = product.Id;
 }
