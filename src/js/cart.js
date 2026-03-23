@@ -1,22 +1,16 @@
-
-import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+import ShoppingCart from "./shoppingCart.mjs";
 
 loadHeaderFooter();
 
-
-
-const shoppingCart = new ShoppingCart("so-cart", document.querySelector(".product-list"));
-
-shoppingCart.init();
+const cart = new ShoppingCart("go-cart", document.querySelector(".product-list"));
+cart.init();
 
 // function renderCartContents() {
 //   const cartItems = getLocalStorage("so-cart") || [];
 //   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
 //   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 // }
-
-
-
 
 // function cartItemTemplate(item) {
 //   const newItem = `<li class="cart-card divider">
@@ -34,9 +28,7 @@ shoppingCart.init();
 //   <p class="cart-card__price">$${item.FinalPrice}</p>
 // </li>`;
 
-
 //   return newItem;
 // }
-
 
 // renderCartContents();
