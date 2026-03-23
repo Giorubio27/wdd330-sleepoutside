@@ -27,9 +27,9 @@ export default class ProductDetails {
         if (!Array.isArray(cart)) {
             cart = [];
         }
-
         cart.push(this.product);
-        
+
+
         setLocalStorage("so-cart", cart);
 
         console.log(`${this.product.Name} added to your cart`);
