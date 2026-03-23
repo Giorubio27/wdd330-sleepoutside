@@ -4,23 +4,25 @@ export default class ProductDetails {
 
     constructor(productId, dataSource) {
         this.productId = productId;
-        this.dataSource = dataSource;
         this.product = {};
+        this.dataSource = dataSource;
+
 
     }
 
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
+
         this.renderProductDetails();
 
-        document    
+        document
             .getElementById("addToCart")
-            .addEventListener("click", () => this.addProductToCart.bind(this));
+            .addEventListener("click", this.addProductToCart.bind(this));
     }
 
     addProductToCart(product) {
 
-        let cart = getLocalStorage("so-cart");
+        const cart = getLocalStorage("so-cart");
 
         if (!Array.isArray(cart)) {
             cart = [];
@@ -48,10 +50,9 @@ function ProductDetailsTemplate(product) {
 
     document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
     document.getElementById("productPrice").textContent = product.FinalPrice;
-    document.getElementById("productColor").textContent = product.Color[0].colorName;
+    document.getElementById("productColor").textContent = product.Color[0].ColorName;
 
     document.getElementById("addToCart").dataset.id = product.Id;
 }
 
 
-    
