@@ -28,6 +28,8 @@ export default class ProductDetails {
             cart = [];
         }
 
+        cart.push(this.product);
+        
         setLocalStorage("so-cart", cart);
 
         console.log(`${this.product.Name} added to your cart`);
