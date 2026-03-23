@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import { loadHeaderFooter } from "./utils.mjs";
+=======
+import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
+>>>>>>> safe-branch
 import ShoppingCart from "./shoppingCart.mjs";
 
 loadHeaderFooter();
 
+<<<<<<< HEAD
 const cart = new ShoppingCart("go-cart", document.querySelector(".product-list"));
+=======
+const cart = new ShoppingCart("so-cart", document.querySelector(".product-list"));
+>>>>>>> safe-branch
 cart.init();
 
 // function renderCartContents() {
