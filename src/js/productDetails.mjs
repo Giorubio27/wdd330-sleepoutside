@@ -20,15 +20,15 @@ export default class ProductDetails {
             .addEventListener("click", this.addProductToCart.bind(this));
     }
 
-    addProductToCart(product) {
+    addProductToCart() {
 
         const cart = getLocalStorage("so-cart");
 
         if (!Array.isArray(cart)) {
             cart = [];
         }
-        cart.push(product);
 
+        cart.push(product);
         setLocalStorage("so-cart", cart);
 
         console.log(`${product.Name} added to your cart`);
