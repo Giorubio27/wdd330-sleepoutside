@@ -64,5 +64,4 @@ export async function loadHeaderFooter(headerPath = "../partials/header.html", f
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
 
-
 }
