@@ -20,14 +20,14 @@ export default class ProductDetails {
 
     addProductToCart(product) {
 
-        let goCart = getLocalStorage("go-cart");
+        let cart = getLocalStorage("so-cart");
 
-        if (!Array.isArray(goCart)) {
-            goCart = [];
+        if (!Array.isArray(cart)) {
+            cart = [];
         }
-        goCart.push(product);
+        cart.push(product);
 
-        setLocalStorage("go-cart", goCart);
+        setLocalStorage("go-cart", cart);
 
         console.log(`${product.Name} added to your cart`);
     }
