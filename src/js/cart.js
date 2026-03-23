@@ -14,8 +14,7 @@ shoppingCart.init();
 //   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
 //   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 // }
-const cart = new ShoppingCart("go-cart", document.querySelector(".product-list"));
-cart.init();
+
 
 // function renderCartContents() {
 //   const cartItems = getLocalStorage("so-cart") || [];
