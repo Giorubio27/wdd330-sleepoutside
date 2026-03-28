@@ -6,8 +6,9 @@ import { getParam, loadHeaderFooter } from "./utils.mjs";
 loadHeaderFooter();
 
 const category = getParam("category");
-const productData = new ProductData(category);
-const productList = new ProductList(category, productData, document.querySelector(".product-list"));
+const productData = new ProductData();
+const listElement = document.querySelector(".product-list");
+const productList = new ProductList(category, productData, listElement);
 
 productList.init();
 
