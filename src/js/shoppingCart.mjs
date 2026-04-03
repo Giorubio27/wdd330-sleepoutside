@@ -27,8 +27,28 @@ export default class ShoppingCart {
 
     async init() {
         const list = await getLocalStorage(this.key) || [];
-        this.renderList(list);
-    }
+      this.renderList(list);
+      
+      if (list.length > 0) {
+        this.calculateTotal(list);
+      }
+  }
+  displayCartTotal(total) {
+    const cartFooter = document.querySelector(".cart-footer");
+    const cartTotalElement = document.querySelector(".cart-total");
+
+    cartTotalElement.innerHTML = `Total: $${total.toFixed(2)}`;
+
+    cartFooter.classList.remove("hide");
+  }
+  
+  calculateTotal(list) {
+    const total = list.reduce((accumulator, item) => {
+      return accumulator + parseFloat(item.FinalPrice);
+    }, 0);
+
+    this.displayCartTotal(total);
+  }
 
     renderList(list) {
         renderListWithTemplate(cartItemTemplate, this.listElement, list);
