@@ -1,10 +1,16 @@
 import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
 
 function cartItemTemplate(item) {
+  // Logic to find the best available image URL
+  const imageUrl = item.Image ||
+    (item.Images && item.Images.PrimaryMedium) ||
+    (item.Images && item.Images.PrimaryLarge);
+    
+
   const newItem = `<li class="cart-card divider">
       <a href="#" class="cart-card__image">
         <img
-          src="${item.Image}"
+          src="${imageUrl}"
           alt="${item.Name}"
         />
       </a>
