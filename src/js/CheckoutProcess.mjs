@@ -1,5 +1,6 @@
 import { getLocalStorage } from "./utils.mjs";
 
+
 export default class CheckoutProcess {
 
     constructor(key, outputSelector) {
@@ -13,37 +14,45 @@ export default class CheckoutProcess {
 
     }
     async init() {
-        this.list = getLocalStorage(this.key);
+        this.list = getLocalStorage(this.key) || [];
+
         this.calculateItemSummary();
     }
 
-    calculateItemSubtotal() {
+    calculateItemSummary() {
+        // Select the summary elements from the HTML
+        const subtotalElement = document.querySelector(this.outputSelector + " #subtotal");
 
+
+        this.itemTotal = this.list.reduce((sum, item) => 
+            sum + parseFloat(item.FinalPrice), 0);
+
+        if (subtotalElement) {
+            subtotalElement.innerText = `$${this.itemTotal.toFixed(2)}`;
+        }
     }
 
     calculateOrderTotal() {
-        this.tax = (this.itemTotal * .06);
-        this.shipping = 10 + (this.list.length - 1) * 2;
-        this.orderTotal = (
-            parseFloat(this.itemTotal) +
-            parseFloat(this.tax) +
-            parseFloat(this.shipping)
-        )
+        if (this.list.length > 0) {
+            this.tax = this.itemTotal * .06;
+            this.shipping = 10 + (this.list.length - 1) * 2;
 
-        this.displayOrderTotals();
+            this.orderTotal = this.itemTotal + this.tax + this.shipping;
+
+            this.displayOrderTotals();
+        }
     }
 
     displayOrderTotals() {
-        const taxElement = document.querySelector(`${this.outputSelector} #tax`);
-        const shippingElement = document.querySelector(`${this.outputSelector} #shipping`);
-        const totalElement = document.querySelector(`${this.outputSelector} #orderTotal`);
+        const shippingElement = document.querySelector(this.outputSelector + " #shipping");
+        const taxElement = document.querySelector(this.outputSelector + " #tax");
+        const totalElement = document.querySelector(this.outputSelector + " #orderTotal");
 
-        taxElement.innerText = `$${this.tax.toFixed(2)}`;
         shippingElement.innerText = `$${this.shipping.toFixed(2)}`;
+        taxElement.innerText = `$${this.tax.toFixed(2)}`;
         totalElement.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
 
 
+
 }
-
-
