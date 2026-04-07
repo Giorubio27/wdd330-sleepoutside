@@ -18,7 +18,7 @@ function packageItems(items) {
     const simplifiedItems = items.map((item) => {
         console.log(item);
         return {
-            id: item.Id,
+            id: item.Id || item.id,
             price: item.FinalPrice,
             name: item.Name,
             quantity: 1,
@@ -84,15 +84,16 @@ export default class CheckoutProcess {
 
    
 
-    async checkout() {
-        const formElement = document.forms["checkout"];
+    async checkout(form) {
+        
+        
         const json = formDataToJSON(form);
 
         json.orderDate = new Date().toISOString();
-        json.orderTotal = this.orderTotal;
-        json.tax = this.tax;
+        json.orderTotal = this.orderTotal.toFixed(2);
+        json.tax = this.tax.toFixed(2);
         json.shipping = this.shipping;
-        json.items = this.packageItems(this.list);
+        json.items = packageItems(this.list);
 
         console.log("Submitting Order:", json);
 

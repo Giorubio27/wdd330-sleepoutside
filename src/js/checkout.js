@@ -15,5 +15,5 @@ document.querySelector("#zip").addEventListener("blur", () => {
 document.forms["checkout-form"].addEventListener("submit", (e) => {
     e.preventDefault();
 
-    myCheckout.CheckoutProcess(e.target);
+    myCheckout.checkout(e.target);
 });
