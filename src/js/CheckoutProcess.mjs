@@ -24,6 +24,7 @@ export default class CheckoutProcess {
         this.shipping = 0;
         this.tax = 0;
         this.orderTotal = 0;
+        this.services = new ExternalServices();
 
     }
     async init() {
@@ -68,7 +69,7 @@ export default class CheckoutProcess {
 
     packageItems(items) {
         return items.map((item) => ({
-            id: item.id,
+            id: item.Id,
             price: item.FinalPrice,
             name: item.Name,
             quantity: 1,
