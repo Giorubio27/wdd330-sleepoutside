@@ -15,16 +15,12 @@ function formDataToJSON(formElement) {
 }
 
 function packageItems(items) {
-    const simplifiedItems = items.map((item) => {
-        console.log(item);
-        return {
-            id: item.Id || item.id,
-            price: item.FinalPrice,
-            name: item.Name,
-            quantity: 1,
-        };
-    });
-    return simplifiedItems;
+    return items.map((item) => ({
+        id: item.Id || item.id, // Handle potential casing differences
+        price: item.FinalPrice,
+        name: item.Name,
+        quantity: 1,
+    }));
 }
 
 
@@ -39,7 +35,7 @@ export default class CheckoutProcess {
         this.shipping = 0;
         this.tax = 0;
         this.orderTotal = 0;
-        
+
 
     }
     async init() {
@@ -82,36 +78,43 @@ export default class CheckoutProcess {
         totalElement.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
 
-   
+
 
     async checkout(form) {
-        
-        
+        // Force calculations to ensure this.tax, this.shipping, etc. are set
+        this.calculateOrderTotal();
+
         const json = formDataToJSON(form);
 
+        // Add these required fields directly to the json object
         json.orderDate = new Date().toISOString();
+
+        // Convert numbers to strings with 2 decimal places to match server expectations
         json.orderTotal = this.orderTotal.toFixed(2);
         json.tax = this.tax.toFixed(2);
-        json.shipping = this.shipping;
+        json.shipping = this.shipping; // This is usually fine as a number, or use .toString()
         json.items = packageItems(this.list);
 
-        console.log("Submitting Order:", json);
+        console.log("Submitting Order Payload:", json);
 
         try {
-            const res = await services.checkout(json)
-            console.log("Order placed:", res)
+            const res = await services.checkout(json);
+            console.log("Order placed successfully:", res);
 
-            //clear cart and return
-            localStorage.removeItem(this.key)
-            location.href("/checkout/success.html")
+            // Success: Clear cart and redirect
+            localStorage.removeItem(this.key);
+
+
         } catch (err) {
-            console.error("Checkout Error", err)
+            // If it hits this catch, the redirect above is skipped.
+            // This log will tell you exactly what the server didn't like.
+            console.log("Server Error:", err);
         }
-
-
-
     }
+
+
 }
+
 
 
 
