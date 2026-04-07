@@ -1,6 +1,8 @@
 import ExternalServices from "./ExternalServices.mjs";
 import { getLocalStorage } from "./utils.mjs";
 
+const services = new ExternalServices();
+
 function formDataToJSON(formElement) {
     const formData = new FormData(formElement);
     const convertedJSON = {};
@@ -12,7 +14,20 @@ function formDataToJSON(formElement) {
     return convertedJSON;
 }
 
-const services = new ExternalServices();
+function packageItems(items) {
+    const simplifiedItems = items.map((item) => {
+        console.log(item);
+        return {
+            id: item.Id,
+            price: item.FinalPrice,
+            name: item.Name,
+            quantity: 1,
+        };
+    });
+    return simplifiedItems;
+}
+
+
 
 export default class CheckoutProcess {
 
@@ -24,7 +39,7 @@ export default class CheckoutProcess {
         this.shipping = 0;
         this.tax = 0;
         this.orderTotal = 0;
-        this.services = new ExternalServices();
+        
 
     }
     async init() {
@@ -67,16 +82,10 @@ export default class CheckoutProcess {
         totalElement.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
 
-    packageItems(items) {
-        return items.map((item) => ({
-            id: item.Id,
-            price: item.FinalPrice,
-            name: item.Name,
-            quantity: 1,
-        }));
-    }
+   
 
-    async CheckoutProcess(form) {
+    async checkout() {
+        const formElement = document.forms["checkout"];
         const json = formDataToJSON(form);
 
         json.orderDate = new Date().toISOString();
@@ -89,7 +98,11 @@ export default class CheckoutProcess {
 
         try {
             const res = await services.checkout(json)
-            console.log("Server Response:", res)
+            console.log("Order placed:", res)
+
+            //clear cart and return
+            localStorage.removeItem(this.key)
+            location.href("/checkout/success.html")
         } catch (err) {
             console.error("Checkout Error", err)
         }
