@@ -65,3 +65,27 @@ export async function loadHeaderFooter(headerPath = "../partials/header.html", f
   renderWithTemplate(footerTemplate, footerElement);
 
 }
+
+export function alertMessage(message, scroll = true) {
+
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  alert.innerHTML = `<span>${message}</span> <span>X</span>`;
+
+  alert.addEventListener("click", function (e) {
+
+    if (e.target.innerText === "X") {
+      main.removeChild(this);
+    }
+  })
+
+  const body = document.querySelector("body");
+  body.prepend(alert);
+
+  if (scroll) {
+    window.scroll(0, 0);
+  }
+}
+
+

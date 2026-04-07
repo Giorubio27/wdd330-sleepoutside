@@ -1,6 +1,8 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
 
+
+
 loadHeaderFooter();
 
 const myCheckout = new CheckoutProcess("so-cart", ".order-summary");
@@ -14,6 +16,9 @@ document.querySelector("#zip").addEventListener("blur", () => {
 
 document.forms["checkout-form"].addEventListener("submit", (e) => {
     e.preventDefault();
-
-    myCheckout.checkout(e.target);
+    const myForm = document.forms[0];
+    const chk_status = myForm.checkValidity();
+    myForm.checkValidity();
+    if (chk_status)
+        myCheckout.checkout(e.target);
 });

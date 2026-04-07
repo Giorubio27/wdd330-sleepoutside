@@ -1,5 +1,5 @@
 import ExternalServices from "./ExternalServices.mjs";
-import { getLocalStorage } from "./utils.mjs";
+import { alertMessage, getLocalStorage } from "./utils.mjs";
 
 const services = new ExternalServices();
 
@@ -103,11 +103,15 @@ export default class CheckoutProcess {
 
             // Success: Clear cart and redirect
             localStorage.removeItem(this.key);
+            location.href = "success.html";
+
+
 
 
         } catch (err) {
             // If it hits this catch, the redirect above is skipped.
             // This log will tell you exactly what the server didn't like.
+            alertMessage("There was an error processing your order. Please check your information");
             console.log("Server Error:", err);
         }
     }
