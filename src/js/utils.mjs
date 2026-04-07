@@ -76,7 +76,7 @@ export function alertMessage(message, scroll = true) {
   alert.addEventListener("click", function (e) {
 
     if (e.target.innerText === "X") {
-      main.removeChild(this);
+      body.removeChild(this);
     }
   })
 
