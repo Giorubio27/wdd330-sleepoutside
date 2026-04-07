@@ -1,5 +1,18 @@
+import ExternalServices from "./ExternalServices.mjs";
 import { getLocalStorage } from "./utils.mjs";
 
+function formDataToJSON(formElement) {
+    const formData = new FormData(formElement);
+    const convertedJSON = {};
+
+    formData.forEach(function (value, key) {
+        convertedJSON[key] = value;
+    });
+
+    return convertedJSON;
+}
+
+const services = new ExternalServices();
 
 export default class CheckoutProcess {
 
@@ -24,7 +37,7 @@ export default class CheckoutProcess {
         const subtotalElement = document.querySelector(this.outputSelector + " #subtotal");
 
 
-        this.itemTotal = this.list.reduce((sum, item) => 
+        this.itemTotal = this.list.reduce((sum, item) =>
             sum + parseFloat(item.FinalPrice), 0);
 
         if (subtotalElement) {
@@ -53,6 +66,37 @@ export default class CheckoutProcess {
         totalElement.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
 
+    packageItems(items) {
+        return items.map((item) => ({
+            id: item.id,
+            price: item.FinalPrice,
+            name: item.Name,
+            quantity: 1,
+        }));
+    }
+
+    async CheckoutProcess(form) {
+        const json = formDataToJSON(form);
+
+        json.orderDate = new Date().toISOString();
+        json.orderTotal = this.orderTotal;
+        json.tax = this.tax;
+        json.shipping = this.shipping;
+        json.items = this.packageItems(this.list);
+
+        console.log("Submitting Order:", json);
+
+        try {
+            const res = await services.checkout(json)
+            console.log("Server Response:", res)
+        } catch (err) {
+            console.error("Checkout Error", err)
+        }
 
 
+
+    }
 }
+
+
+
